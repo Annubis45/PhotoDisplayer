@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+	<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <head>
+        <meta charset="utf-8" />
+        <title>WebAfficheur</title>
+    </head>
+	<style>
+		
+		.row{
+		    margin-left:0px;
+		    margin-right:0px;
+		}
+
+		#wrapper {
+		    padding-left: 70px;
+		    transition: all .4s ease 0s;
+		    
+		}
+
+		#sidebar-wrapper {
+		    margin-left: -100px;
+		    left: 70px;
+		    width: 100px;
+		    background: #000;
+		    position: fixed;
+		    height: 100%;
+		    z-index: 10000;
+		    transition: all .4s ease 0s;
+		}
+
+		.sidebar-nav {
+		    display: block;
+		    float: left;
+		    width: 100px;
+		    list-style: none;
+		    margin: 0;
+		    padding: 0;
+		}
+		#page-content-wrapper {
+		    background-color: #000000
+		    padding-left: 0;
+		    margin-left: 0;
+		    width: 100%;
+		    height: auto;
+		}
+		.sen-class {
+		    background-color: #000000
+		}
+		#wrapper.active {
+		    padding-left: 100px;
+		}
+		#wrapper.active #sidebar-wrapper {
+		    left: 100px;
+		}
+
+		#page-content-wrapper {
+		  width: 100%;
+		}
+		body
+		{
+			background-color: black;
+			color: black;
+		}
+		html
+		{
+			background-color: black;
+			color: black;
+		}
+		#sidebar_menu li a, .sidebar-nav li a {
+		    color: #000000;
+		    display: block;
+		    float: left;
+		    text-decoration: none;
+		    width: 100px;
+		    background: #000000;
+		    border-top: 1px solid #000000;
+		    border-bottom: 1px solid #000000;
+		    -webkit-transition: background .5s;
+		    -moz-transition: background .5s;
+		    -o-transition: background .5s;
+		    -ms-transition: background .5s;
+		    transition: background .5s;
+		}
+		.sidebar_name {
+		    padding-top: 25px;
+		    color: #fff;
+		    opacity: .7;
+		}
+
+		.sidebar-nav li {
+		  line-height: 90px;
+		  text-indent: 20px;
+		}
+
+		.sidebar-nav li a {
+		  color: #999999;
+		  display: block;
+		  text-decoration: none;
+		}
+
+		.sidebar-nav li a:hover {
+		  color: #fff;
+		  background: rgba(255,255,255,0.2);
+		  text-decoration: none;
+		}
+
+		.sidebar-nav li a:active,
+		.sidebar-nav li a:focus {
+		  text-decoration: none;
+		}
+
+		.sidebar-nav > .sidebar-brand {
+		  height: 75px;
+		  line-height: 80px;
+		  font-size: 18px;
+		}
+
+		.sidebar-nav > .sidebar-brand a {
+		  color: #000000;
+		}
+
+		.sidebar-nav > .sidebar-brand a:hover {
+		  color: #fff;
+		  background: none;
+		}
+
+		#main_icon
+		{
+		    float:right;
+		   padding-right: 65px;
+		   padding-top:20px;
+		}
+		.sub_icon
+		{
+		   float:right;
+		   padding-right: 25px;
+		   padding-top:25px;
+		   padding-bottom:25px;
+		}
+		.content-header {
+		  height: 65px;
+		  line-height: 65px;
+		}
+
+		.content-header h1 {
+		  margin: 0;
+		  margin-left: 20px;
+		  line-height: 65px;
+		  display: inline-block;
+		}
+
+		@media (max-width:767px) {
+		    #wrapper {
+		    padding-left: 70px;
+		    transition: all .4s ease 0s;
+		}
+		#sidebar-wrapper {
+		    left: 70px;
+		}
+		#wrapper.active {
+		    padding-left: 100px;
+		}
+		#wrapper.active #sidebar-wrapper {
+		    left: 100px;
+		    width: 100px;
+		    transition: all .4s ease 0s;
+		}
+		}
+		.glyphicon {
+		    font-size: 50px;
+		}
+		.sidebar-bottom
+		{
+		    position: absolute;
+		    display: inline-block;
+		    bottom: 0;
+		    left: 0px;
+		}
+		.sidebar-mid
+		{
+		    padding-top: 80px;
+		}
+
+
+	</style>
+	<script>
+		function SetDim(bloc){
+			var hauteur;
+			var largeur;
+	
+			if( typeof( window.innerWidth ) == 'number' )
+				hauteur = window.innerHeight;
+			else if( document.documentElement && document.documentElement.clientHeight )
+				hauteur = document.documentElement.clientHeight;
+			
+			if( typeof( window.innerHeight ) == 'number' )
+				largeur = window.innerWidth;
+			else if( document.documentElement && document.documentElement.clientWidth )
+				largeur = document.documentElement.clientWidth;
+			
+			if(largeur/hauteur>1.5)
+			{
+				document.getElementById(bloc).style.height = (hauteur-0)+"px";
+				document.getElementById(bloc).style.width="auto";
+			}
+			else
+			{
+				document.getElementById(bloc).style.width = (largeur-0)+"px";
+				document.getElementById(bloc).style.height="auto";
+			}
+		}
+
+		function Ban()
+		{
+			var xmlhttp=new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function()
+			{
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				{
+					//document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+				}
+			}
+			xmlhttp.open("GET","index.py?action=ban",true);
+			xmlhttp.send();	
+		}
+
+		function Previous()
+		{
+			var xmlhttp=new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function()
+			{
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				{
+					document.getElementById("image").src=xmlhttp.responseText;
+				}
+			}
+			xmlhttp.open("GET","index.py?action=previous",true);
+			xmlhttp.send();	
+		}
+
+		function Next()
+		{
+			var xmlhttp=new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function()
+			{
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				{
+					document.getElementById("image").src=xmlhttp.responseText;
+				}
+			}
+			xmlhttp.open("GET","index.py?action=next",true);
+			xmlhttp.send();	
+		}
+
+		function Like()
+		{
+			var xmlhttp=new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function()
+			{
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				{
+					//document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+				}
+			}
+			xmlhttp.open("GET","index.py?action=like",true);
+			xmlhttp.send();	
+		}
+		
+		function Dislike()
+		{
+			var xmlhttp=new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function()
+			{
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				{
+					//document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+				}
+			}
+			xmlhttp.open("GET","index.py?action=dislike",true);
+			xmlhttp.send();	
+		}
+
+		window.onload = function(){ SetDim("image") };
+		window.onresize = function(){ SetDim("image") };
+
+		
+	</script>
+    <body style="text-align:center" >
+
+<div id="wrapper" class="active"> 
+      <!-- Sidebar -->
+            <!-- Sidebar -->
+	<div id="sidebar-wrapper">
+		<ul class="sidebar-nav" id="sidebar">     
+			<li><a onclick="Like()"><span class="sub_icon glyphicon glyphicon glyphicon-thumbs-up"></span></a></li>
+			<li><a onclick="Dislike()"><span class="sub_icon glyphicon glyphicon glyphicon-thumbs-down"></span></a></li>
+		</ul>
+		<ul class="sidebar-nav sidebar-mid" id="sidebar">     
+			<li><a onclick="Next()"><span class="sub_icon glyphicon glyphicon glyphicon glyphicon-forward"></span></a></li>
+			<li><a onclick="Previous()"><span class="sub_icon glyphicon glyphicon glyphicon glyphicon-backward"></span></a></li>
+		</ul>
+		<ul class="sidebar-nav sidebar-bottom" id="sidebar">    
+			<li><a onclick="Ban()"><span class="sub_icon glyphicon glyphicon glyphicon-ban-circle"></span></a></li>
+		</ul>
+	</div>
+	<!-- Page content -->
+      	<div id="page-content-wrapper">
+        <!-- Keep all page content within the page-content inset! -->
+        	<div class="page-content inset">
+          		<div class="row">
+              			<div class="col-md-12 sen-class">
+					<img src="image.py?image=DSC_0269.JPG" id="image" style="image-orientation: from-image; height:auto; width:auto; max-height:100%; text-align:center" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    </body>
+</html>
