@@ -213,12 +213,12 @@
 			
 			if(largeur/hauteur>1.5)
 			{
-				document.getElementById(bloc).style.height = (hauteur-0)+"px";
+				document.getElementById(bloc).style.height = (hauteur-0+10)+"px";
 				document.getElementById(bloc).style.width="auto";
 			}
 			else
 			{
-				document.getElementById(bloc).style.width = (largeur-0)+"px";
+				document.getElementById(bloc).style.width = (largeur-0+10)+"px";
 				document.getElementById(bloc).style.height="auto";
 			}
 		}

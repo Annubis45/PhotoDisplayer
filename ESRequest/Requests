@@ -1,0 +1,29 @@
+/_search?size=1
+{
+  "query": {
+    "function_score": {
+      "functions": [
+        {
+          "random_score": {},
+          "weight": 1
+        },
+        {
+          "field_value_factor": {
+            "field": "note"
+          },
+          "weight": 1
+        }
+      ],
+      "score_mode": "multiply"
+    }
+  }
+}
+
+
+/photodisplayer/photo/{ID}
+{
+  "name": "test1",
+  "date": "rtgfythhygfhh",
+  "note": 2,
+  "path": "/media/data/photo/photo1.jpg"
+}
