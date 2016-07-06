@@ -8,7 +8,7 @@ IFS="
 for m in `find $basePath -type f -iname "*.JPG" ! -path "*PRIVATE*" ! -path "*private*"` ; do
 	echo $m
 	md5file=$(md5sum ${m}  | awk '{print $1}' );
-	askES=$(curl -XGET "$baseESurl""AU8X3WxxH88PT0fMWVzn2");
+	askES=$(curl -XGET "$baseESurl""$md5file");
 	fullpath=$(readlink -f $m);
 	dateFile=$(date +"%d/%m/%y %T" -r ${m});
 	note=10;
