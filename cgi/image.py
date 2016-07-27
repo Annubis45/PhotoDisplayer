@@ -2,23 +2,27 @@
 # -*- coding: utf-8 -*
 
 import cgi 
-import base64
 import sys
 import requests, json
+import os.path
 
+form = cgi.FieldStorage()
+idcurrent = form.getvalue("idcurrent")
 
-query = json.dumps(
-{
-	"query": { "match_all": {} }
-})
-response = requests.get("http://localhost:9200/photodisplayer/current/photo")
-results = json.loads(response.text)
+mock = False
+if idcurrent=="" or type(idcurrent)==type(None) or idcurrent=="0":
+	mock =True
+else:
+	imageRaw = requests.get("http://localhost:9200/photodisplayer/photo/"+idcurrent)
+	imageJson = json.loads(imageRaw.text)
+	fullpath = imageJson["_source"]["fullpath"]
+	if os.path.exists(fullpath) :
+		data = open(fullpath, 'rb').read()
+	else:
+		mock=True
 
+if mock:
+	data = open("DSC_0269.JPG", 'rb').read()
 
-fullpath = results["_source"]["fullpath"]
-
-#form = cgi.FieldStorage()
-#file1 = form.getvalue("image")
-data = open(fullpath, 'rb').read()
 sys.stdout.buffer.write(b"Content-Type: image/jpeg\n\n") 
 sys.stdout.buffer.write(data)

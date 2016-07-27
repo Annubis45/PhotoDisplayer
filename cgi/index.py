@@ -6,56 +6,55 @@ import base64
 import random
 import requests, json
 
-def add_note(ajout) :
-	headers = {'content-type' : 'application/json'}
-	response = requests.get("http://localhost:9200/photodisplayer/current/photo")
-	results = json.loads(response.text)
-	note = results["_source"]["note"]
-	results["_source"]["note"] = note+ajout
-	returnJson=results["_source"]
+def getCurrentPhoto(currentPhotoMD5):
+	response = requests.get("http://localhost:9200/photodisplayer/photo/"+currentPhotoMD5)
+	jsonPhoto = json.loads(response.text)
+	return jsonPhoto
+
+def add_note(currentPhotoMD5,ajout) :
+	jsonCurrentPhoto=getCurrentPhoto(currentPhotoMD5)
+	note = jsonCurrentPhoto["_source"]["note"]
+	jsonCurrentPhoto["_source"]["note"] = note+ajout
+	returnJson=jsonCurrentPhoto["_source"]
 	query2 = json.dumps(returnJson)
-	url="http://localhost:9200/photodisplayer/photo/"+results["_source"]["id"];
+	url="http://localhost:9200/photodisplayer/photo/"+jsonCurrentPhoto["_source"]["id"];
 	response2 = requests.put(url, data=query2)
 	print(json.loads(response2.text))
 
-def ban():
-	headers = {'content-type' : 'application/json'}
-	response = requests.get("http://localhost:9200/photodisplayer/current/photo")
-	results = json.loads(response.text)
-	note = results["_source"]["note"]
-	results["_source"]["note"] = 0
-	returnJson=results["_source"]
+def ban(currentPhotoMD5):
+	jsonCurrentPhoto=getCurrentPhoto(currentPhotoMD5)
+	note = jsonCurrentPhoto["_source"]["note"]
+	jsonCurrentPhoto["_source"]["note"] = 0
+	returnJson=jsonCurrentPhoto["_source"]
 	query2 = json.dumps(returnJson)
-	url="http://localhost:9200/photodisplayer/photo/"+results["_source"]["id"];
+	url="http://localhost:9200/photodisplayer/photo/"+jsonCurrentPhoto["_source"]["id"];
 	response2 = requests.put(url, data=query2)
 
 def getRandom():
 	query = json.dumps(
 	{
-	"query": {
-	"function_score": {
-	"functions": [
-	{
-	"random_score": {},
-	"weight": 1
-	},
-	{
-	"field_value_factor": {
-	"field": "note"
-	},
-	"weight": 1
-	}
-	],
-	"score_mode": "multiply"
-	}
-	}
+		"query": {
+			"function_score": {
+				"functions": [
+					{
+						"random_score": {},
+						"weight": 1
+					},
+					{
+						"field_value_factor": {
+						"field": "note"
+						},
+						"weight": 1
+					}
+					],
+				"score_mode": "multiply"
+				}
+		}
 	})
 	response = requests.get("http://localhost:9200/photodisplayer/photo/_search?size=1", data=query)
 	results = json.loads(response.text)
-	returnJson=results["hits"]["hits"][0]["_source"]
-	query2 = json.dumps(returnJson)
-	url="http://localhost:9200/photodisplayer/current/photo";
-	response2 = requests.put(url, data=query2)
+	photoMD5=results["hits"]["hits"][0]["_source"]["id"]
+	return photoMD5
 	
 	
 
@@ -66,33 +65,25 @@ print("Content-type: text/html; charset=utf-8\n")
 var = 0;
 html = ""
 
-
-
-
-#Get the order
+#Get the action
 action = form.getvalue("action")
 idcurrent = form.getvalue("id")
 idprevious = form.getvalue("previous")
 
-#Switch "order"
+#Switch "action"
 if action=="ban":
-	ban()
+	ban(idcurrent)
 	html="ok"
 
 if action=="next":
-	getRandom();
-	html=random.random()*random.random();
-
-if action=="previous":
-	getRandom();
-	html=random.random()*random.random();
+	html=getRandom();
 
 if action=="like":
-	add_note(1)
+	add_note(idcurrent,1)
 	html="ok"
 
 if action=="dislike":
-	add_note(-1)
+	add_note(idcurrent,-1)
 	html="ok"
 
 if action=="" or str(action) == "None":

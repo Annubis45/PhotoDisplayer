@@ -1,340 +1,53 @@
 <!DOCTYPE html>
 <html>
-	<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-    <head>
-        <meta charset="utf-8" />
+<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link href="css/photoDisplayer.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="js/photoDisplayer.js"></script>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<title>WebAfficheur!</title>
+</head>
 
 
-<meta http-equiv="cache-control" content="max-age=0" />
-<meta http-equiv="cache-control" content="no-cache" />
-<meta http-equiv="expires" content="0" />
-<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-<meta http-equiv="pragma" content="no-cache" />
+<body style="text-align:center">
 
-
-        <title>WebAfficheur!</title>
-    </head>
-	<style>
-		
-		.row{
-		    margin-left:0px;
-		    margin-right:0px;
-		}
-
-		#wrapper {
-		    padding-left: 70px;
-		    transition: all .4s ease 0s;
-		    
-		}
-
-		#sidebar-wrapper {
-		    margin-left: -100px;
-		    left: 70px;
-		    width: 100px;
-		    background: #000;
-		    position: fixed;
-		    height: 100%;
-		    z-index: 10000;
-		    transition: all .4s ease 0s;
-		}
-
-		.sidebar-nav {
-		    display: block;
-		    float: left;
-		    width: 100px;
-		    list-style: none;
-		    margin: 0;
-		    padding: 0;
-		}
-		#page-content-wrapper {
-		    background-color: #000000
-		    padding-left: 0;
-		    margin-left: 0;
-		    width: 100%;
-		    height: auto;
-		}
-		.sen-class {
-		    background-color: #000000
-		}
-		#wrapper.active {
-		    padding-left: 100px;
-		}
-		#wrapper.active #sidebar-wrapper {
-		    left: 100px;
-		}
-
-		#page-content-wrapper {
-		  width: 100%;
-		}
-		body
-		{
-			background-color: black;
-			color: black;
-		}
-		html
-		{
-			background-color: black;
-			color: black;
-		}
-		#sidebar_menu li a, .sidebar-nav li a {
-		    color: #000000;
-		    display: block;
-		    float: left;
-		    text-decoration: none;
-		    width: 100px;
-		    background: #000000;
-		    border-top: 1px solid #000000;
-		    border-bottom: 1px solid #000000;
-		    -webkit-transition: background .5s;
-		    -moz-transition: background .5s;
-		    -o-transition: background .5s;
-		    -ms-transition: background .5s;
-		    transition: background .5s;
-		}
-		.sidebar_name {
-		    padding-top: 25px;
-		    color: #fff;
-		    opacity: .7;
-		}
-
-		.sidebar-nav li {
-		  line-height: 90px;
-		  text-indent: 20px;
-		}
-
-		.sidebar-nav li a {
-		  color: #444444;
-		  display: block;
-		  text-decoration: none;
-		}
-
-		.sidebar-nav li a:hover {
-		  color: #fff;
-		  background: rgba(255,255,255,0.2);
-		  text-decoration: none;
-		}
-
-		.sidebar-nav li a:active,
-		.sidebar-nav li a:focus {
-		  text-decoration: none;
-		}
-
-		.sidebar-nav > .sidebar-brand {
-		  height: 75px;
-		  line-height: 80px;
-		  font-size: 18px;
-		}
-
-		.sidebar-nav > .sidebar-brand a {
-		  color: #000000;
-		}
-
-		.sidebar-nav > .sidebar-brand a:hover {
-		  color: #fff;
-		  background: none;
-		}
-
-		#main_icon
-		{
-		    float:right;
-		   padding-right: 65px;
-		   padding-top:20px;
-		}
-		.sub_icon
-		{
-		   float:right;
-		   padding-right: 25px;
-		   padding-top:25px;
-		   padding-bottom:25px;
-		}
-		.content-header {
-		  height: 65px;
-		  line-height: 65px;
-		}
-
-		.content-header h1 {
-		  margin: 0;
-		  margin-left: 20px;
-		  line-height: 65px;
-		  display: inline-block;
-		}
-
-		@media (max-width:767px) {
-		    #wrapper {
-		    padding-left: 70px;
-		    transition: all .4s ease 0s;
-		}
-		#sidebar-wrapper {
-		    left: 70px;
-		}
-		#wrapper.active {
-		    padding-left: 100px;
-		}
-		#wrapper.active #sidebar-wrapper {
-		    left: 100px;
-		    width: 100px;
-		    transition: all .4s ease 0s;
-		}
-		}
-		.glyphicon {
-		    font-size: 50px;
-		}
-		.sidebar-bottom
-		{
-		    position: absolute;
-		    display: inline-block;
-		    bottom: 0;
-		    left: 0px;
-		}
-		.sidebar-mid
-		{
-		    padding-top: 80px;
-		}
-
-
-	</style>
-	<script>
-		function SetDim(bloc){
-			var hauteur;
-			var largeur;
-	
-			if( typeof( window.innerWidth ) == 'number' )
-				hauteur = window.innerHeight;
-			else if( document.documentElement && document.documentElement.clientHeight )
-				hauteur = document.documentElement.clientHeight;
-			
-			if( typeof( window.innerHeight ) == 'number' )
-				largeur = window.innerWidth;
-			else if( document.documentElement && document.documentElement.clientWidth )
-				largeur = document.documentElement.clientWidth;
-			
-			if(largeur/hauteur>1.5)
-			{
-				document.getElementById(bloc).style.height = (hauteur-0)+"px";
-				document.getElementById(bloc).style.width="auto";
-			}
-			else
-			{
-				document.getElementById(bloc).style.width = (largeur-0)+"px";
-				document.getElementById(bloc).style.height="auto";
-			}
-		}
-
-		function Ban()
-		{
-			var xmlhttp=new XMLHttpRequest();
-			xmlhttp.onreadystatechange=function()
-			{
-				if (xmlhttp.readyState==4 && xmlhttp.status==200)
-				{
-					//document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-				}
-			}
-			xmlhttp.open("GET","cgi/index.py?action=ban&idcurrent=",true);
-			xmlhttp.send();	
-		}
-
-		function Previous()
-		{
-			var xmlhttp=new XMLHttpRequest();
-			xmlhttp.onreadystatechange=function()
-			{
-				if (xmlhttp.readyState==4 && xmlhttp.status==200)
-				{
-					Image3 = new Image();
-					Image3.src ="cgi/image.py?idcurrent="+xmlhttp.responseText;
-					document.getElementById("image").src="cgi/image.py?idcurrent="+xmlhttp.responseText;
-					console.log(xmlhttp.responseText);
-				}
-			}
-			xmlhttp.open("GET","cgi/index.py?action=previous",true);
-			xmlhttp.send();	
-		}
-
-		function Next()
-		{
-			var xmlhttp=new XMLHttpRequest();
-			xmlhttp.onreadystatechange=function()
-			{
-				if (xmlhttp.readyState==4 && xmlhttp.status==200)
-				{
-					Image3 = new Image();
-					Image3.src = "cgi/image.py?idcurrent="+xmlhttp.responseText;
-					document.getElementById("image").src="cgi/image.py?idcurrent="+xmlhttp.responseText;
-					console.log(xmlhttp.responseText);
-				}
-			}
-			xmlhttp.open("GET","cgi/index.py?action=next",true);
-			xmlhttp.send();	
-		}
-
-		function Like()
-		{
-			var xmlhttp=new XMLHttpRequest();
-			xmlhttp.onreadystatechange=function()
-			{
-				if (xmlhttp.readyState==4 && xmlhttp.status==200)
-				{
-					//document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-				}
-			}
-			xmlhttp.open("GET","cgi/index.py?action=like&idcurrent=",true);
-			xmlhttp.send();	
-		}
-		
-		function Dislike()
-		{
-			var xmlhttp=new XMLHttpRequest();
-			xmlhttp.onreadystatechange=function()
-			{
-				if (xmlhttp.readyState==4 && xmlhttp.status==200)
-				{
-					//document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-				}
-			}
-			xmlhttp.open("GET","cgi/index.py?action=dislike&idcurrent=",true);
-			xmlhttp.send();	
-		}
-
-		window.onload = function(){ SetDim("image") };
-		window.onresize = function(){ SetDim("image") };
-		window.setInterval("Next()", 5000);
-		Next();
-		window.scrollTo(0,1);
-		
-	</script>
-    <body style="text-align:center" >
-
-<div id="wrapper" class="active"> 
-      <!-- Sidebar -->
-            <!-- Sidebar -->
-	<div id="sidebar-wrapper">
-		<ul class="sidebar-nav" id="sidebar">     
-			<li><a onclick="Like()"><span class="sub_icon glyphicon glyphicon glyphicon-thumbs-up"></span></a></li>
-			<li><a onclick="Dislike()"><span class="sub_icon glyphicon glyphicon glyphicon-thumbs-down"></span></a></li>
-		</ul>
-		<ul class="sidebar-nav sidebar-mid" id="sidebar">     
-			<li><a onclick="Next()"><span class="sub_icon glyphicon glyphicon glyphicon glyphicon-forward"></span></a></li>
-			<li><a onclick="Previous()"><span class="sub_icon glyphicon glyphicon glyphicon glyphicon-backward"></span></a></li>
-		</ul>
-		<ul class="sidebar-nav sidebar-bottom" id="sidebar">    
-			<li><a onclick="Ban()"><span class="sub_icon glyphicon glyphicon glyphicon-ban-circle"></span></a></li>
-		</ul>
-	</div>
-	<!-- Page content -->
-      	<div id="page-content-wrapper">
-        <!-- Keep all page content within the page-content inset! -->
-        	<div class="page-content inset">
-          		<div class="row">
-              			<div class="col-md-12 sen-class">
-					<img src="cgi/image.py" id="image" style="image-orientation: from-image; height:auto; width:auto; max-height:101%; text-align:center" />
+	<div id="wrapper" class="active">
+		<!-- Sidebar -->
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav" id="sidebar">
+				<li><a onclick="Like()"><span class="sub_icon glyphicon glyphicon glyphicon-thumbs-up"></span></a></li>
+				<li><a onclick="Dislike()"><span class="sub_icon glyphicon glyphicon glyphicon-thumbs-down"></span></a></li>
+			</ul>
+			<ul class="sidebar-nav sidebar-mid" id="sidebar">
+				<li><a onclick="Next()"><span class="sub_icon glyphicon glyphicon glyphicon glyphicon-forward"></span></a></li>
+				<li><a onclick="Previous()"><span class="sub_icon glyphicon glyphicon glyphicon glyphicon-backward"></span></a></li>
+			</ul>
+			<ul class="sidebar-nav sidebar-bottom" id="sidebar">
+				<li><a onclick="Ban()"><span class="sub_icon glyphicon glyphicon glyphicon-ban-circle"></span></a></li>
+			</ul>
+		</div>
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<!-- Keep all page content within the page-content inset! -->
+			<div class="page-content inset">
+				<div class="row">
+					<div class="col-md-12 sen-class">
+						<img src="cgi/image.py" id="image" style="image-orientation: from-image; height:auto; width:auto; max-height:101%; text-align:center"
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-    </body>
+</body>
+
 </html>
