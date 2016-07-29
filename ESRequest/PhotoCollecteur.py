@@ -8,7 +8,6 @@ import hashlib
 import requests
 import time
 
-
 baseESurl="http://localhost:9200/photodisplayer/photo/"
 defaultNote=10
 forceAllNote=False
@@ -17,7 +16,8 @@ forceAllNoteExcept0=True
 def AddPhotoToES(fullPathFile):
 	md5file=hashlib.md5(open(fullPathFile, 'rb').read()).hexdigest()
 	photoFromES = requests.get("http://localhost:9200/photodisplayer/photo/"+md5file)
-	dateFile=time.ctime(os.path.getctime(fullPathFile))
+	dateFile=time.strftime('%Y-%m-%dT%H:%M:%S', time.gmtime(os.path.getctime(fullPathFile)))
+    #2009-11-15T14:12:12
 	note=defaultNote
 	if forceAllNote or not ("\"found\":true" in photoFromES.text) or (forceAllNoteExcept0 and not ("\"note\": 0" in photoFromES.text)):
 	    print( "   inserting :")
