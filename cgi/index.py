@@ -17,7 +17,8 @@ def add_note(currentPhotoMD5,ajout) :
 	jsonCurrentPhoto["_source"]["note"] = note+ajout
 	returnJson=jsonCurrentPhoto["_source"]
 	query2 = json.dumps(returnJson)
-	url="http://localhost:9200/photodisplayer/photo/"+jsonCurrentPhoto["_source"]["id"];
+	print(query2)
+	url="http://localhost:9200/photodisplayer/photo/"+jsonCurrentPhoto["_id"];
 	response2 = requests.put(url, data=query2)
 	print(json.loads(response2.text))
 
@@ -27,7 +28,7 @@ def ban(currentPhotoMD5):
 	jsonCurrentPhoto["_source"]["note"] = 0
 	returnJson=jsonCurrentPhoto["_source"]
 	query2 = json.dumps(returnJson)
-	url="http://localhost:9200/photodisplayer/photo/"+jsonCurrentPhoto["_source"]["id"];
+	url="http://localhost:9200/photodisplayer/photo/"+jsonCurrentPhoto["_id"];
 	response2 = requests.put(url, data=query2)
 
 def getRandom():
@@ -53,7 +54,7 @@ def getRandom():
 	})
 	response = requests.get("http://localhost:9200/photodisplayer/photo/_search?size=1", data=query)
 	results = json.loads(response.text)
-	photoMD5=results["hits"]["hits"][0]["_source"]["id"]
+	photoMD5=results["hits"]["hits"][0]["_id"]
 	return photoMD5
 	
 	
@@ -67,7 +68,7 @@ html = ""
 
 #Get the action
 action = form.getvalue("action")
-idcurrent = form.getvalue("id")
+idcurrent = form.getvalue("idcurrent")
 idprevious = form.getvalue("previous")
 
 #Switch "action"

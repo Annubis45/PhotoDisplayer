@@ -83,14 +83,14 @@ function Dislike() {
             //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
         }
     }
-    xmlhttp.open("GET", "cgi/index.py?action=dislike&idcurrent=", true);
+    xmlhttp.open("GET", "cgi/index.py?action=dislike&idcurrent="+currentPhotoMD5, true);
     xmlhttp.send();
 }
 
-function Init() {
+function Init(RefreshTime) {
     window.onload = function () { SetDim("image") };
     window.onresize = function () { SetDim("image") };
-    window.setInterval("Next()", 5000);
+    window.setInterval("Next()", RefreshTime);
     Next();
     window.scrollTo(0, 1);
 }
@@ -111,4 +111,8 @@ var currentPhotoMD5=0;
 var imagesBufferPosition=-1;
 var imageBuffer = new Array();
 var imagesBufferSize=30;
-Init();
+var RefreshTime=10000
+Init(RefreshTime);
+
+
+
