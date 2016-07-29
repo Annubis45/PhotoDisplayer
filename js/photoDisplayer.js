@@ -11,7 +11,10 @@ function SetDim(bloc) {
         largeur = window.innerWidth;
     else if (document.documentElement && document.documentElement.clientWidth)
         largeur = document.documentElement.clientWidth;
-
+    
+    console.log(largeur );
+    console.log(hauteur);
+    console.log(largeur / hauteur );
     if (largeur / hauteur > 1.5) {
         document.getElementById(bloc).style.height = (hauteur - 0) + "px";
         document.getElementById(bloc).style.width = "auto";
@@ -20,6 +23,8 @@ function SetDim(bloc) {
         document.getElementById(bloc).style.width = (largeur - 0) + "px";
         document.getElementById(bloc).style.height = "auto";
     }
+    document.getElementById(bloc).style.height = (hauteur - 0) + "px";
+    document.getElementById(bloc).style.width = "auto";
 }
 
 
@@ -111,7 +116,7 @@ var currentPhotoMD5=0;
 var imagesBufferPosition=-1;
 var imageBuffer = new Array();
 var imagesBufferSize=30;
-var RefreshTime=10000
+var RefreshTime=1000000
 Init(RefreshTime);
 
 
