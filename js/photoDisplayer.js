@@ -1,30 +1,12 @@
 function SetDim(bloc) {
-    var hauteur;
-    var largeur;
 
-    if (typeof (window.innerWidth) == 'number')
-        hauteur = window.innerHeight;
-    else if (document.documentElement && document.documentElement.clientHeight)
-        hauteur = document.documentElement.clientHeight;
 
-    if (typeof (window.innerHeight) == 'number')
-        largeur = window.innerWidth;
-    else if (document.documentElement && document.documentElement.clientWidth)
-        largeur = document.documentElement.clientWidth;
-    
-    console.log(largeur );
-    console.log(hauteur);
-    console.log(largeur / hauteur );
-    if (largeur / hauteur > 1.5) {
-        document.getElementById(bloc).style.height = (hauteur - 0) + "px";
-        document.getElementById(bloc).style.width = "auto";
-    }
-    else {
-        document.getElementById(bloc).style.width = (largeur - 0) + "px";
-        document.getElementById(bloc).style.height = "auto";
-    }
-    document.getElementById(bloc).style.height = (hauteur - 0) + "px";
-    document.getElementById(bloc).style.width = "auto";
+    console.log(window.innerHeight );
+    console.log(document.documentElement.clientWidth);
+
+
+    document.getElementById(bloc).style.maxHeight = (document.documentElement.clientHeight  ) + "px";
+    document.getElementById(bloc).style.maxWidth = document.documentElement.clientWidth+ "px";
 }
 
 
